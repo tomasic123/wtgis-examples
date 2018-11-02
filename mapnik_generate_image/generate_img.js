@@ -12,9 +12,10 @@ var BBOX = [-508428.4646376185119,-1222456.082299999893,-504979.520799998194,-12
 var map = new mapnik.Map(width, height);
 // create new map object with defined width and height
 
+var proj = "+proj=krovak +lat_0=49.5 +lon_0=24.83333333333333 +alpha=30.28813972222222 +k=0.9999 +x_0=0 +y_0=0 +ellps=bessel +towgs84=589,76,480,0,0,0,0 +units=m +no_defs";
 
 // schema of the rendered map
-var schema = '<Map background-color="transparent" srs="+init=epsg:5514">' + // we define background color of the map and its spatial reference system with epsg code of data used
+var schema = '<Map background-color="transparent" srs="'+proj+'">' + // we define background color of the map and its spatial reference system with epsg code of data used
                 '<Style name="style_budovy">' + // style for layer "style_budovy"
                     '<Rule>' +
                         '<LineSymbolizer stroke="black" stroke-width="0.1" />' + // style for lines
@@ -26,14 +27,14 @@ var schema = '<Map background-color="transparent" srs="+init=epsg:5514">' + // w
                         '<LineSymbolizer stroke="#d7c8b9" stroke-width="0.8" />' + // style for lines
                     '</Rule>' +
                 '</Style>' +
-                '<Layer name="cesty" srs="+init=epsg:5514">' + // layer "cesty" with spatial reference system
+                '<Layer name="cesty" srs="'+proj+'">' + // layer "cesty" with spatial reference system
                     '<StyleName>style_cesty</StyleName>' + // binding of a style used for this layer => "style_cesty"
                     '<Datasource>' + // definition of a data source
                         '<Parameter name="file">' + path.join( __dirname, 'data/cesty.shp' ) +'</Parameter>' + // path to the data file
                         '<Parameter name="type">shape</Parameter>' + // file type
                     '</Datasource>' +
                 '</Layer>' +
-                '<Layer name="budovy" srs="+init=epsg:5514">' + // same as above
+                '<Layer name="budovy" srs="'+proj+'">' + // same as above
                     '<StyleName>style_cesty</StyleName>' +
                     '<Datasource>' +
                         '<Parameter name="file">' + path.join( __dirname, 'data/budovy.shp' ) +'</Parameter>' +
